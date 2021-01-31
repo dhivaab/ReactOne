@@ -7,8 +7,7 @@ export let reducer= (state = todos, action) => {
             console.log(state)
             let newtodos = [...state];
             newtodos.push(action.payload);
-            return newtodos;
-            
+            return newtodos;    
         case "DELETE_TODO":
             let newTodos  = [...state];
             newTodos = newTodos.filter(todo => todo.id != action.payload)
@@ -16,18 +15,9 @@ export let reducer= (state = todos, action) => {
         
         case "MODIFY_TODO":
             let numbers = [...state];
-           let index = -1;
-           for (let i=0; i< numbers.length; i++) {
-               index++;
-
-               if(numbers[i].id == action.payload.id) {
-                   break;
-               }
-           }
-           if (index !=-1) {
-               numbers[index] = action.payload
-               return numbers;
-           }
+            let index = numbers.findIndex((e) => e.id == action.payload.id);
+            numbers[index].name = action.payload.name;
+           return numbers;
         default:
             return state;
     }
